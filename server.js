@@ -24,8 +24,22 @@ app.use(express.static("public"));
 
 // retrieve json data from db.json file
 // 
-let dbData = fs.readFileSync(path.join(__dirname, "/db/db.json"), "utf8");
+let dbData = fs.readFileSync(path.join(__dirname, "/db.json"), "utf8");
 dbData = JSON.parse(dbData);
+
+let noteData = dbData.noteData
+console.log(noteData)
+
+app.get("api/notes", function (req, res) {
+    res.json(noteData);
+})
+
+app.post("/api/notes", function(req, res) {
+    
+      noteData.push(req.body);
+      res.json(true);
+    
+  });
 
 // Routes
 // 
