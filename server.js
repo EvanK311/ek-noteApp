@@ -25,7 +25,7 @@ app.use(express.static("public"));
 // retrieve json data from db.json file
 // 
 let dbData = fs.readFileSync(path.join(__dirname, "/db/db.json"), "utf8");
-dbData = JSON.parse(dbData)
+dbData = JSON.parse(dbData);
 
 // Routes
 // 
