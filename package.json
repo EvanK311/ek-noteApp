@@ -1,16 +1,27 @@
 {
-  "name": "note-taker",
+  "name": "ek-noteapp",
   "version": "1.0.0",
-  "description": "",
+  "description": "note taking app",
   "main": "server.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "fs": "0.0.1-security",
+    "path": "^0.12.7",
+    "uniqid": "^5.2.0"
+  },
+  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EvanK311/ek-noteApp.git"
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "express": "^4.16.4",
-    "uniqid": "^5.2.0"
-  }
+  "bugs": {
+    "url": "https://github.com/EvanK311/ek-noteApp/issues"
+  },
+  "homepage": "https://github.com/EvanK311/ek-noteApp#readme"
 }
