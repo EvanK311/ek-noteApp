@@ -38,11 +38,11 @@ app.get("/api/notes", function (req, res) {
 // Post notes from api
 // 
 app.post("/api/notes", function (req, res) {
-    let note = pullData();
+    let noteJson = pullData();
     const newNote = req.body
     let id = uniqid()
     newNote.id = id
-    note.push(newNote)
+    noteJson.push(newNote)
     postData(noteJson)
     res.json(noteJson)
 })
@@ -67,7 +67,7 @@ const postData = function (data) {
 
 const pullData = function () {
     const dataRoute = path.join(__dirname, "/db.json")
-    const json = JSON.parse(fs.readFileSync(jsonPath))
+    const json = JSON.parse(fs.readFileSync(dataRoute))
     return json
 }
 
