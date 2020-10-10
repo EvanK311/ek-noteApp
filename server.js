@@ -1,12 +1,3 @@
-
-// TODO: create a connection to /notes page
-//TODO: 'get started' button will take you to notes.html page.
-
-//TODO: create GET `/api/notes` to read db.json file to return saved notes from db.json
-//TODO: POST `/api/notes` should receive new note to save 
-//TODO: DELETE `/api/notes/:id` will delete the note containing the ID given. 
-
-
 // Dependencies
 // 
 const express = require("express");
@@ -70,22 +61,6 @@ const pullData = function () {
     const json = JSON.parse(fs.readFileSync(dataRoute))
     return json
 }
-
-// function getNoteData() {
-//     let dbData = fs.readFileSync(path.join(__dirname, "/db.json"), "utf8");
-//     dbData = JSON.parse(dbData);
-
-//     let noteData = dbData.noteData
-//     console.log(noteData)
-//     return noteData
-// }
-
-// app.get("api/notes", function (req, res) {
-    // res.json(getNoteData());
-// })
-
-
-
 
 // Listener and default route
 // 
