@@ -13,12 +13,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
 
-// Routes
-// 
 
-app.get("/notes", function (req, res) {    
-    res.sendFile(path.join(__dirname, "/public/notes.html"));
-})
 // api call for json data
 
 app.get("/api/notes", function (req, res) {
@@ -62,6 +57,13 @@ const pullData = function () {
     return json
 }
 
+
+// Routes
+// 
+
+app.get("/notes", function (req, res) {    
+    res.sendFile(path.join(__dirname, "/public/notes.html"));
+})
 // Listener and default route
 // 
 
