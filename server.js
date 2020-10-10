@@ -12,7 +12,7 @@
 const express = require("express");
 const path = require("path");
 const fs = require("fs")
-
+const uniqid = require("uniqid")
 const app = express();
 var PORT = process.env.PORT || 3000
 
@@ -22,41 +22,78 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
 
-// retrieve json data from db.json file
-// 
-let dbData = fs.readFileSync(path.join(__dirname, "/db.json"), "utf8");
-dbData = JSON.parse(dbData);
-
-let noteData = dbData.noteData
-console.log(noteData)
-
-app.get("api/notes", function (req, res) {
-    res.json(noteData);
-})
-
-app.post("/api/notes", function(req, res) {
-    
-      noteData.push(req.body);
-      res.json(true);
-    
-  });
-
 // Routes
 // 
-app.get("/index", function (req, res) {    
-    res.sendFile(path.join(__dirname, "/public/index.html"));
-})
 
 app.get("/notes", function (req, res) {    
     res.sendFile(path.join(__dirname, "/public/notes.html"));
 })
+// api call for json data
 
+app.get("/api/notes", function (req, res) {
+    const note = pullData()
+    res.json(note)
+})
+
+// Post notes from api
+// 
+app.post("/api/notes", function (req, res) {
+    let note = pullData();
+    const newNote = req.body
+    let id = uniqid()
+    newNote.id = id
+    note.push(newNote)
+    postData(noteJson)
+    res.json(noteJson)
+})
+
+// Note deleter
+// 
+app.delete("/api/notes/:id", function (req, res) {
+    const note = pullData();
+    const result = note.filter(note => note.id != req.params.id)
+    postData(result)
+    res.json(result)
+})
+
+// write to JSON file
+// 
+const postData = function (data) {
+    const dataRoute = path.join(__dirname, "/db.json")
+    fs.writeFile(dataRoute, JSON.stringify(data), (err) => {
+        if (err) throw err;
+    })
+}
+
+const pullData = function () {
+    const dataRoute = path.join(__dirname, "/db.json")
+    const json = JSON.parse(fs.readFileSync(jsonPath))
+    return json
+}
+
+// function getNoteData() {
+//     let dbData = fs.readFileSync(path.join(__dirname, "/db.json"), "utf8");
+//     dbData = JSON.parse(dbData);
+
+//     let noteData = dbData.noteData
+//     console.log(noteData)
+//     return noteData
+// }
+
+// app.get("api/notes", function (req, res) {
+    // res.json(getNoteData());
+// })
+
+
+
+
+// Listener and default route
+// 
 app.get("*", function (req, res) {    
     res.sendFile(path.join(__dirname, "/public/index.html"));
 })
 
-// Listener
-// 
+
 app.listen(PORT, function () {
     console.log("App listening on PORT")
 }) 
